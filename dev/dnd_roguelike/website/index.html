@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D Roguelike | Epic Fantasy Adventure</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+
+    <section class="hero">
+        <div class="container">
+            <h1>D&D Roguelike</h1>
+            <p>A turn-based dungeon crawler where every decision matters. Harness legendary artifacts and survive the
+                depths.</p>
+            <a href="#play" class="btn">Play Demo</a>
+        </div>
+    </section>
+
+    <section id="play" class="game-section container reveal">
+        <h2>Full Web Edition</h2>
+        <div class="game-wrapper">
+            <canvas id="game-canvas" width="800" height="500"></canvas>
+            <div class="game-controls">
+                <p><strong>Controls:</strong> WASD / Arrows to Move | G to Pick Up/Equip</p>
+                <p>Features: Procedural Rooms, Critical Hits, Armor DEX Caps, and Infinite Damage Sword.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="features container">
+        <h2 class="reveal">Legendary Mechanics</h2>
+        <div class="features-grid">
+            <div class="feature-card reveal">
+                <span class="icon" style="color: var(--cyan);">/</span>
+                <h3>Infinite Damage</h3>
+                <p>Equip the fabled Sword of Infinite Damage. Strike down Trolls and Orcs with a single, devastating
+                    blow. 100,000d10 of pure destruction.</p>
+            </div>
+            <div class="feature-card reveal">
+                <span class="icon" style="color: var(--gold);">[</span>
+                <h3>Advanced Armor</h3>
+                <p>Survival is a choice. Find Leather, Chain Mail, or Plate Armor. Balance your Dexterity mod with
+                    superior protection to reach the ultimate AC.</p>
+            </div>
+            <div class="feature-card reveal">
+                <span class="icon" style="color: var(--emerald);">!</span>
+                <h3>Healing Potions</h3>
+                <p>Out of health? Scour the dungeon for emerald potions. A single draught can restore your vitality and
+                    keep the adventure alive.</p>
+            </div>
+            <div class="feature-card reveal">
+                <span class="icon" style="color: var(--text-dim);">#</span>
+                <h3>True FOV</h3>
+                <p>The darkness is your greatest enemy. Integrated raycasting FOV hides the unknown and remembers your
+                    path. Every corner hides a new threat.</p>
+            </div>
+        </div>
+    </section>
+
+    <footer style="padding: 50px 0; text-align: center; border-top: 1px solid var(--border); margin-top: 100px;">
+        <div class="container">
+            <p style="color: var(--text-dim)">&copy; 2026 D&D Roguelike. Built for the bold.</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="game.js"></script>
+</body>
+
+</html>

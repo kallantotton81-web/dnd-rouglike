@@ -1,0 +1,35 @@
+import pygame
+
+# Screen settings
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+TILE_SIZE = 20
+
+# Map settings
+MAP_WIDTH = 40
+MAP_HEIGHT = 25
+
+# Colors
+COLOR_BLACK = (0, 0, 0)
+COLOR_WHITE = (255, 255, 255)
+COLOR_GREY = (100, 100, 100)
+COLOR_DARK_GREY = (50, 50, 50)
+COLOR_RED = (255, 0, 0)
+COLOR_GREEN = (0, 255, 0)
+COLOR_BLUE = (0, 0, 255)
+COLOR_YELLOW = (255, 255, 0)
+COLOR_GOLD = (255, 215, 0)
+
+# Items
+CHAR_ARMOR = "["
+CHAR_POTION = "!"
+CHAR_WEAPON = "/"
+COLOR_PURPLE = (128, 0, 128)
+COLOR_CYAN = (0, 255, 255)
+
+# D&D Mechanics
+BASE_AC = 10
+STAT_BONUS_CALC = lambda x: (x - 10) // 2
+
+# FOV
+FOV_RADIUS = 8

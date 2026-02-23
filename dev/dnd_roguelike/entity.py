@@ -44,10 +44,13 @@ class Entity:
 
 class Player(Entity):
     def __init__(self, x, y):
-        super().__init__(x, y, "Player", "@", COLOR_WHITE)
-        self.strength = 16
-        self.dexterity = 14
+        super().__init__(x, y, "Zelda", "Z", COLOR_GOLD)
+        self.strength = 12
+        self.dexterity = 16
         self.constitution = 14
+        self.intelligence = 16
+        self.wisdom = 18
+        self.charisma = 16
         self.max_hp = 100 + self.get_modifier(self.constitution)
         self.hp = self.max_hp
 

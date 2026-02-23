@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "<string>", line 47, in <module>
+    msg = potion_item.use(engine, engine.player)
+  File "C:\Users\26tottonk\OneDrive - State of South Dakota K-12 Data Center\Desktop\dev\dnd rouglike volume 2\items.py", line 32, in use
+    user.inventory.remove_item(self)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^
+  File "C:\Users\26tottonk\OneDrive - State of South Dakota K-12 Data Center\Desktop\dev\dnd rouglike volume 2\inventory.py", line 19, in remove_item
+    self.items.remove(item)
+    ~~~~~~~~~~~~~~~~~^^^^^^
+ValueError: list.remove(x): x not in list

@@ -18,9 +18,9 @@ def get_ip():
         s.close()
     return IP
 
-# Change directory to the project root (where this script is located)
+# Change directory to the website folder
 script_dir = os.path.dirname(os.path.abspath(__file__))
-os.chdir(script_dir)
+os.chdir(os.path.join(script_dir, "website"))
 
 Handler = http.server.SimpleHTTPRequestHandler
 
@@ -32,11 +32,11 @@ try:
         print("=" * 60)
         print(f"Status:    RUNNING")
         print(f"Port:      {PORT}")
-        print(f"Local URL: http://localhost:{PORT}/website/")
-        print(f"LAN URL:   http://{local_ip}:{PORT}/website/")
+        print(f"Local URL: http://localhost:{PORT}/")
+        print(f"LAN URL:   http://{local_ip}:{PORT}/")
         print("-" * 60)
         print("INSTRUCTIONS:")
-        print(f"1. Tell your friends to go to: http://{local_ip}:{PORT}/website/")
+        print(f"1. Tell your friends to go to: http://{local_ip}:{PORT}/")
         print("2. Source files are available at: http://{local_ip}:{PORT}/")
         print("-" * 60)
         print("IF IT DOESN'T WORK:")

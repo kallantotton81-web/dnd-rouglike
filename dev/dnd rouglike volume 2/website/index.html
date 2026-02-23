@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D&D Roguelike Vol. 2 | Web Edition</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- Main Menu / Class Selection -->
+        <main id="main-menu" class="overlay">
+            <div class="menu-content">
+                <h1 class="logo">D&D Roguelike <span>Vol. 2</span></h1>
+                <p class="tagline">Survive the depths. Claim your destiny.</p>
+                
+                <div class="class-selection">
+                    <h2>Choose Your Hero</h2>
+                    <div class="class-grid">
+                        <button class="class-card" data-class="Fighter">
+                            <div class="icon">⚔️</div>
+                            <h3>Fighter</h3>
+                            <p>Hardy and strong. Starts with more HP and a Longsword.</p>
+                        </button>
+                        <button class="class-card" data-class="Wizard">
+                            <div class="icon">🪄</div>
+                            <h3>Wizard</h3>
+                            <p>Master of the arcane. Starts with Magic Missile and a Staff.</p>
+                        </button>
+                        <button class="class-card" data-class="Rogue">
+                            <div class="icon">🗡️</div>
+                            <h3>Rogue</h3>
+                            <p>Nimble and deadly. High AC and starts with a Shortsword.</p>
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="menu-actions">
+                    <button id="start-btn" disabled>Enter the Dungeon</button>
+                </div>
+            </div>
+        </main>
+
+        <!-- Game Screen -->
+        <div id="game-container" class="hidden">
+            <header class="hud-top">
+                <div class="stats-group">
+                    <div id="hp-bar-container">
+                        <div id="hp-bar"></div>
+                        <span id="hp-text">HP: 20 / 20</span>
+                    </div>
+                    <div class="lives-display">❤️ <span id="lives-count">3</span></div>
+                </div>
+                <div class="floor-display">Floor <span id="floor-num">1</span></div>
+                <div id="active-spell-display">Active: <span id="active-spell">None</span></div>
+            </header>
+
+            <div class="main-layout">
+                <div class="canvas-wrapper">
+                    <canvas id="game-canvas" width="800" height="500"></canvas>
+                </div>
+                
+                <aside class="sidebar">
+                    <div class="log-container">
+                        <h3>Message Log</h3>
+                        <ul id="message-log"></ul>
+                    </div>
+                    <div class="inventory-container">
+                        <h3>Inventory</h3>
+                        <ul id="inventory-list"></ul>
+                    </div>
+                </aside>
+            </div>
+
+            <footer class="controls-hint">
+                <span><strong>WASD / Arrows</strong>: Move</span>
+                <span><strong>G</strong>: Pick Up</span>
+                <span><strong>C</strong>: Cast Active</span>
+                <span><strong>I</strong>: Toggle Inventory</span>
+            </footer>
+        </div>
+
+        <!-- Victory / Game Over Overlays -->
+        <div id="victory-screen" class="overlay hidden">
+            <div class="menu-content highlight">
+                <h1>VICTORY!</h1>
+                <p>You have conquered the 20th floor and escaped the depths.</p>
+                <button onclick="location.reload()">Begin Anew</button>
+            </div>
+        </div>
+
+        <div id="game-over-screen" class="overlay hidden">
+            <div class="menu-content danger">
+                <h1>DEATH</h1>
+                <p>Thy journey ends here. Lives remaining: 0.</p>
+                <button onclick="location.reload()">Try Again</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="game.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

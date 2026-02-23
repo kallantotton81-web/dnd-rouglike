@@ -1,0 +1,301 @@
+:root {
+    --bg-void: hsl(240, 10%, 4%);
+    --bg-surface: hsl(240, 10%, 8%);
+    --bg-card: hsl(240, 10%, 12%);
+    --border: hsl(240, 10%, 20%);
+    
+    --gold: hsl(45, 100%, 50%);
+    --gold-dim: hsl(45, 50%, 30%);
+    --gold-glow: hsla(45, 100%, 50%, 0.2);
+    
+    --blood: hsl(0, 70%, 50%);
+    --blood-dim: hsl(0, 50%, 30%);
+    
+    --cyan: hsl(180, 100%, 50%);
+    --emerald: hsl(150, 70%, 50%);
+    
+    --text-main: hsl(0, 0%, 90%);
+    --text-dim: hsl(0, 0%, 60%);
+    
+    --font-heading: 'Cinzel', serif;
+    --font-body: 'Outfit', sans-serif;
+    
+    --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--bg-void);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    overflow: hidden;
+    height: 100vh;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.hidden { display: none !important; }
+
+/* Overlays (Menus, Victory, Game Over) */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle at center, hsla(240, 10%, 0%, 0.9) 0%, var(--bg-void) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn var(--transition);
+}
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.menu-content {
+    text-align: center;
+    max-width: 800px;
+    padding: 40px;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 0 20px var(--gold-glow);
+}
+
+.logo span {
+    font-size: 1.5rem;
+    display: block;
+    color: var(--text-dim);
+}
+
+.tagline {
+    font-size: 1.2rem;
+    color: var(--text-dim);
+    margin-bottom: 3rem;
+}
+
+/* Class Selection */
+.class-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 3rem;
+}
+
+.class-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    padding: 24px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-align: center;
+}
+
+.class-card:hover {
+    border-color: var(--gold-dim);
+    background: var(--bg-card);
+    transform: translateY(-5px);
+}
+
+.class-card.selected {
+    border-color: var(--gold);
+    background: hsla(45, 100%, 50%, 0.05);
+    box-shadow: 0 0 30px var(--gold-glow);
+}
+
+.class-card .icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.class-card h3 {
+    font-family: var(--font-heading);
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+}
+
+.class-card p {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    line-height: 1.4;
+}
+
+button#start-btn {
+    padding: 16px 48px;
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    background: var(--gold);
+    color: var(--bg-void);
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: var(--transition);
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+button#start-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+button#start-btn:not(:disabled):hover {
+    filter: brightness(1.1);
+    box-shadow: 0 0 20px var(--gold-glow);
+}
+
+/* Game Interface */
+#game-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+.hud-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 20px;
+}
+
+.stats-group {
+    display: flex;
+    gap: 30px;
+    align-items: center;
+}
+
+#hp-bar-container {
+    width: 250px;
+    height: 24px;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+#hp-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--blood-dim), var(--blood));
+    width: 100%;
+    transition: width 0.3s ease;
+}
+
+#hp-text {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    text-shadow: 0 1px 2px black;
+}
+
+.floor-display {
+    font-family: var(--font-heading);
+    color: var(--gold);
+    font-size: 1.5rem;
+}
+
+#active-spell-display {
+    color: var(--cyan);
+}
+
+/* Layout */
+.main-layout {
+    display: flex;
+    gap: 20px;
+    flex: 1;
+    min-height: 0;
+}
+
+.canvas-wrapper {
+    flex: 1;
+    background: black;
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+canvas {
+    max-width: 100%;
+    max-height: 100%;
+}
+
+.sidebar {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.sidebar > div {
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+h3 {
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    color: var(--gold-dim);
+    margin-bottom: 12px;
+    text-transform: uppercase;
+}
+
+ul {
+    list-style: none;
+    overflow-y: auto;
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+#message-log li { margin-bottom: 4px; border-left: 2px solid transparent; padding-left: 8px; }
+#inventory-list li { 
+    padding: 8px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: var(--transition);
+}
+#inventory-list li:hover { background: var(--bg-card); }
+
+.controls-hint {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    color: var(--text-dim);
+    font-size: 0.8rem;
+}
+
+/* Overlays specific */
+.highlight h1 { color: var(--emerald); text-shadow: 0 0 20px hsla(150, 70%, 50%, 0.3); }
+.danger h1 { color: var(--blood); text-shadow: 0 0 20px hsla(0, 70%, 50%, 0.3); }

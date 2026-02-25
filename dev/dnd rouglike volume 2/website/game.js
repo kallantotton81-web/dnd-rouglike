@@ -213,6 +213,27 @@ class GameEngine {
                 equippable: { slot: 'scroll' }
             }));
         }
+
+        // Spawn Weapon
+        if (Math.random() < 0.2) {
+            let x = room.x1 + 1 + Math.floor(Math.random() * (room.x2 - room.x1 - 1));
+            let y = room.y1 + 1 + Math.floor(Math.random() * (room.y2 - room.y1 - 1));
+            const r = Math.random();
+            let name, char, color, dice, sides;
+
+            if (r < 0.05) {
+                name = "Excalibur"; char = "/"; color = COLORS.GOLD; dice = 2; sides = 20;
+            } else if (r < 0.5) {
+                name = "Longsword"; char = "/"; color = COLORS.WHITE; dice = 1; sides = 8;
+            } else {
+                name = "Dagger"; char = "/"; color = COLORS.WHITE; dice = 1; sides = 4;
+            }
+
+            this.entities.push(new Entity(x, y, name, char, color, {
+                item: new ItemComp(null, { dice, sides }),
+                equippable: { slot: 'weapon' }
+            }));
+        }
     }
 
     useScroll(itemEnt) {
@@ -266,7 +287,19 @@ class GameEngine {
     }
 
     attack(attacker, target) {
-        const dmg = Math.floor(Math.random() * 6) + 2;
+        let dice = 1, sides = 6; // Default unarmed
+        if (attacker.fighter.weapon) {
+            dice = attacker.fighter.weapon.item.dice || 1;
+            sides = attacker.fighter.weapon.item.sides || 6;
+        }
+
+        let dmg = 0;
+        for (let i = 0; i < dice; i++) dmg += Math.floor(Math.random() * sides) + 1;
+
+        // Add strength bonus (simplified)
+        const strBonus = Math.floor((attacker.fighter.stats.str - 10) / 2);
+        dmg += Math.max(0, strBonus);
+
         target.fighter.hp -= dmg;
         this.addMessage(`${attacker.name} hits ${target.name} for ${dmg}!`);
         this.checkDeath(target);
@@ -427,9 +460,14 @@ class GameEngine {
             li.innerText = itemEnt.item.isIdentified ? itemEnt.name : "? (Unknown)";
             li.onclick = () => {
                 if (itemEnt.equippable) {
-                    this.player.fighter.scroll = (this.player.fighter.scroll === itemEnt) ? null : itemEnt;
-                    this.addMessage(this.player.fighter.scroll ? `Equipped ${itemEnt.name}` : `Unequipped ${itemEnt.name}`);
-                } else {
+                    if (itemEnt.equippable.slot === 'scroll') {
+                        this.player.fighter.scroll = (this.player.fighter.scroll === itemEnt) ? null : itemEnt;
+                        this.addMessage(this.player.fighter.scroll ? `Equipped ${itemEnt.name}` : `Unequipped ${itemEnt.name}`);
+                    } else if (itemEnt.equippable.slot === 'weapon') {
+                        this.player.fighter.weapon = (this.player.fighter.weapon === itemEnt) ? null : itemEnt;
+                        this.addMessage(this.player.fighter.weapon ? `Equipped ${itemEnt.name}` : `Unequipped ${itemEnt.name}`);
+                    }
+                } else if (itemEnt.item.useFunc) {
                     this.addMessage(itemEnt.item.useFunc(itemEnt));
                 }
                 this.updateHUD();

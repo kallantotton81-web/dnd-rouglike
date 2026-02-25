@@ -216,7 +216,11 @@ def place_entities(room: Room, engine: 'Engine', theme: str = "normal"):
             elif r < 0.7:
                 # Spawn weapons/armor
                 roll = random.random()
-                if roll < 0.05:
+                if roll < 0.02:
+                    # Legendary Excalibur!
+                    item_component = Item(name="Excalibur", char="/", color=(255, 215, 0))
+                    equippable = EquippableComp(None, slot="weapon", damage_dice="2d20")
+                elif roll < 0.07:
                     # Rare God Sword!
                     item_component = Item(name="Sword of Antigravity", char="/", color=(255, 0, 255))
                     equippable = EquippableComp(None, slot="weapon", damage_dice="100d1")

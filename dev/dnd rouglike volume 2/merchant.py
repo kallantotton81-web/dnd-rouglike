@@ -48,8 +48,15 @@ def setup_merchant_stock(engine: 'Engine'):
     Entity(0, 0, scroll_item.char, scroll_item.color, scroll_item.name, item=scroll_item, equippable=scroll_equippable)
     stock.append((scroll_item, 100 if "Fireball" in name else 75 if "Missile" in name else 60))
         
-    # 3. Rare Weapons Chance (God Sword)
-    if random.random() < 0.15:
+    # 3. Rare Weapons Chance (God Sword / Excalibur)
+    r = random.random()
+    if r < 0.05:
+        # Excalibur!
+        god_item = Item(name="Excalibur", char="/", color=(255, 215, 0))
+        god_equippable = Equippable(None, slot="weapon", damage_dice="2d20")
+        Entity(0, 0, god_item.char, god_item.color, god_item.name, item=god_item, equippable=god_equippable)
+        stock.append((god_item, 1000))
+    elif r < 0.20:
         god_item = Item(name="Sword of Antigravity", char="/", color=(255, 0, 255))
         god_equippable = Equippable(None, slot="weapon", damage_dice="100d1")
         # Create dummy entity for ownership/equipping logic

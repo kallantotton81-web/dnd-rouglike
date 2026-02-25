@@ -334,8 +334,29 @@ class GameEngine {
 
     monsterTurn() {
         this.entities.filter(e => e.fighter && e !== this.player).forEach(m => {
-            if (Math.abs(m.x - this.player.x) + Math.abs(m.y - this.player.y) === 1) {
+            const distance = this.dist(m, this.player);
+
+            if (distance === 1) {
+                // Adjacent: Attack
                 this.attack(m, this.player);
+            } else if (distance <= 8) {
+                // Close enough: Move towards player
+                let dx = 0, dy = 0;
+                if (m.x < this.player.x) dx = 1; else if (m.x > this.player.x) dx = -1;
+                if (m.y < this.player.y) dy = 1; else if (m.y > this.player.y) dy = -1;
+
+                if (dx !== 0 || dy !== 0) {
+                    // Try moving in x, then y (simple pathfinding)
+                    let tx = m.x + dx, ty = m.y;
+                    if (!this.map[tx][ty].blocked && !this.entities.some(e => e.x === tx && e.y === ty && e.blocksMovement)) {
+                        m.x = tx; m.y = ty;
+                    } else {
+                        tx = m.x; ty = m.y + dy;
+                        if (!this.map[tx][ty].blocked && !this.entities.some(e => e.x === tx && e.y === ty && e.blocksMovement)) {
+                            m.x = tx; m.y = ty;
+                        }
+                    }
+                }
             }
         });
     }
